@@ -43,9 +43,9 @@ fila_2 = Fila(
     identificador_fila= "2",
     lista_eventos=[],
     tamanho_fila= 5,
-    numero_servidores= 2,
+    numero_servidores= 3,
     range_chegada=(0 , 0),
-    range_atendimento=( 4, 8)
+    range_atendimento=( 2, 4)
 )
 fila_2.lista_eventos.append(Evento(tipo_evento=TipoEvento.VAZIO, fila=0, tempo=0, estados= [0] * (fila_2.tamanho_fila + 1) ))
 
@@ -53,13 +53,22 @@ fila_2.lista_eventos.append(Evento(tipo_evento=TipoEvento.VAZIO, fila=0, tempo=0
 fila_3 = Fila(
     identificador_fila= "3",
     lista_eventos=[],
-    tamanho_fila= 10,
+    tamanho_fila= 2,
     numero_servidores= 2,
     range_chegada=(0 , 0),
-    range_atendimento=( 5, 15)
+    range_atendimento=( 3, 6)
 )
 fila_3.lista_eventos.append(Evento(tipo_evento=TipoEvento.VAZIO, fila=0, tempo=0, estados= [0] * (fila_3.tamanho_fila + 1) ))
 
+fila_4 = Fila( 
+    identificador_fila= "4",
+    lista_eventos=[],
+    tamanho_fila= 10,
+    numero_servidores= 2,
+    range_chegada=(0 , 0),
+    range_atendimento=( 2, 4)
+    )
+fila_4.lista_eventos.append(Evento(tipo_evento=TipoEvento.VAZIO, fila=0, tempo=0, estados= [0] * (fila_4.tamanho_fila + 1) ))
 #################### Adiciona subfilas
 
 fila_1.adiciona_subfilas(
@@ -67,11 +76,11 @@ fila_1.adiciona_subfilas(
         {
             "ObjetoFila": fila_2,
             "Lower_bound_prob": 0,
-            "Upper_bound_prob": 0.8
+            "Upper_bound_prob": 0.7
         },
         {
             "ObjetoFila": fila_3,
-            "Lower_bound_prob": 0.8,
+            "Lower_bound_prob": 0.7,
             "Upper_bound_prob": 1
         }
     ]
@@ -81,14 +90,14 @@ fila_1.adiciona_subfilas(
 fila_2.adiciona_subfilas(
     [
         {
-            "ObjetoFila": fila_2,
-            "Lower_bound_prob": 0,
-            "Upper_bound_prob": 0.5
+            "ObjetoFila": fila_4,
+            "Lower_bound_prob": 0.1,
+            "Upper_bound_prob": 0.9
         },
         {
-            "ObjetoFila": fila_1,
-            "Lower_bound_prob": 0.5,
-            "Upper_bound_prob": 0.8
+            "ObjetoFila": fila_3,
+            "Lower_bound_prob": 0.9,
+            "Upper_bound_prob": 1
         }
     ]
 )
@@ -99,7 +108,22 @@ fila_3.adiciona_subfilas(
         {
             "ObjetoFila": fila_3,
             "Lower_bound_prob": 0,
-            "Upper_bound_prob": 0.7
+            "Upper_bound_prob": 0.1
+        },
+        {
+            "ObjetoFila": fila_4,
+            "Lower_bound_prob": 0.1,
+            "Upper_bound_prob": 1
+        }
+    ]
+)
+
+fila_4.adiciona_subfilas(
+    [
+        {
+            "ObjetoFila": fila_2,
+            "Lower_bound_prob": 0,
+            "Upper_bound_prob": 0.2
         }
     ]
 )
@@ -212,16 +236,4 @@ fila_2.printa_fila()
 
 fila_3.printa_fila()
 
-
-
-
-
-
-    
-
-
-
-
-
-
-
+fila_4.printa_fila()
